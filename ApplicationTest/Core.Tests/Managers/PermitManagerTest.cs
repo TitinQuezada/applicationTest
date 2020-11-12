@@ -13,6 +13,30 @@ namespace Core.Tests.Managers
     public sealed class PermitManagerTest
     {
         [Test]
+        public async Task CreateWhenExceptionOcuredThenReturnOperationResultFailed()
+        {
+            PermitCreateOrEditViewModel permitCreateViewModel = new PermitCreateOrEditViewModel
+            {
+                EmployeeName = "sadasd",
+                EmployeeLastName = "alalal",
+                PermitType = 51,
+                Date = DateTime.Now
+            };
+
+            IPermitRepositoy permitRepository = Substitute.For<IPermitRepositoy>();
+            IPermitTypeRepository permitTypeRepository = Substitute.For<IPermitTypeRepository>();
+
+            permitRepository.When(p => p.Create(Arg.Any<Permit>())).Do(call => { throw new ArgumentException(); });
+            permitTypeRepository.FindAsync(Arg.Any<Expression<Func<PermitType, bool>>>()).ReturnsForAnyArgs(new PermitType());
+
+            PermitManager permitManager = new PermitManager(permitRepository, permitTypeRepository);
+            IOperationResult<bool> operationResult = await permitManager.Create(permitCreateViewModel);
+
+            Assert.IsFalse(operationResult.Success);
+            Assert.AreEqual("Ha ocurrido un error al registrar el permiso.", operationResult.Message);
+        }
+
+        [Test]
         public async Task CreateWhenEmployeeNameIsEmptyThenReturnOperationResultFailed()
         {
             PermitCreateOrEditViewModel permitCreateViewModel = new PermitCreateOrEditViewModel
@@ -116,6 +140,30 @@ namespace Core.Tests.Managers
             IOperationResult<bool> operationResult = await permitManager.Create(permitCreateViewModel);
 
             Assert.IsTrue(operationResult.Success);
+        }
+
+        [Test]
+        public async Task UpdateWhenExceptionOcuredThenReturnOperationResultFailed()
+        {
+            PermitCreateOrEditViewModel permitCreateViewModel = new PermitCreateOrEditViewModel
+            {
+                EmployeeName = "sadasd",
+                EmployeeLastName = "alalal",
+                PermitType = 51,
+                Date = DateTime.Now
+            };
+
+            IPermitRepositoy permitRepository = Substitute.For<IPermitRepositoy>();
+            IPermitTypeRepository permitTypeRepository = Substitute.For<IPermitTypeRepository>();
+
+            permitRepository.When(p => p.FindAsync(Arg.Any<Expression<Func<Permit, bool>>>())).Do(call => { throw new ArgumentException(); });
+            permitTypeRepository.FindAsync(Arg.Any<Expression<Func<PermitType, bool>>>()).ReturnsForAnyArgs(new PermitType());
+
+            PermitManager permitManager = new PermitManager(permitRepository, permitTypeRepository);
+            IOperationResult<bool> operationResult = await permitManager.Update(permitCreateViewModel);
+
+            Assert.IsFalse(operationResult.Success);
+            Assert.AreEqual("Ha ocurrido un error al actualizar el permiso.", operationResult.Message);
         }
 
         [Test]
