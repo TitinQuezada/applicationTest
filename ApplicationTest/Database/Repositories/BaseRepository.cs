@@ -20,9 +20,16 @@ namespace Database.Repositories
             _set = context.Set<T>();
         }
 
-        IEnumerable<T> IBaseRepository<T>.Get()
+        IEnumerable<T> IBaseRepository<T>.Get(params Expression<Func<T, object>>[] includes)
         {
-            return _set.AsEnumerable();
+            IQueryable<T> queryable = _set.AsQueryable();
+
+            foreach (Expression<Func<T, object>> include in includes)
+            {
+                queryable = queryable.Include(include);
+            }
+
+            return queryable.ToList();
         }
 
         void IBaseRepository<T>.Create(T entity)
@@ -52,6 +59,18 @@ namespace Database.Repositories
         async Task IBaseRepository<T>.SaveAsync()
         {
             await _context.SaveChangesAsync();
+        }
+
+        T IBaseRepository<T>.Find(Expression<Func<T, bool>> condition, params Expression<Func<T, object>>[] includes)
+        {
+            IQueryable<T> queryable = _set.AsQueryable();
+
+            foreach (Expression<Func<T, object>> include in includes)
+            {
+                queryable = queryable.Include(include);
+            }
+
+            return queryable.FirstOrDefault(condition);
         }
     }
 }

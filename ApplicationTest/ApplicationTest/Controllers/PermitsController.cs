@@ -1,6 +1,5 @@
 ﻿using Core.Interfaces;
 using Core.Managers;
-using Core.Models;
 using Core.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
@@ -48,14 +47,14 @@ namespace ApplicationTest.Controllers
         [HttpGet]
         public IActionResult GetAll()
         {
-            IOperationResult<IEnumerable<Permit>> operationResult = _permitManager.GetAll();
+            IOperationResult<IEnumerable<PermitViewModel>> operationResult = _permitManager.GetAll();
 
             if (!operationResult.Success)
             {
                 return BadRequest(operationResult.Message);
             }
 
-            return Ok();
+            return Ok(operationResult.Entity);
         }
 
         [HttpDelete("{permitId}")]

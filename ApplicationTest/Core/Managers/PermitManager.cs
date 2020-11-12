@@ -2,6 +2,7 @@
 using Core.Models;
 using Core.ViewModels;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Core.Managers
@@ -123,18 +124,32 @@ namespace Core.Managers
             }
         }
 
-        public IOperationResult<IEnumerable<Permit>> GetAll()
+        public IOperationResult<IEnumerable<PermitViewModel>> GetAll()
         {
             try
             {
                 IEnumerable<Permit> permits = _permitRepositoy.Get();
 
-                return OperationResult<IEnumerable<Permit>>.Ok(permits);
+                IEnumerable<PermitViewModel> permitsResult = BuildPermits(permits);
+
+                return OperationResult<IEnumerable<PermitViewModel>>.Ok(permitsResult);
             }
             catch
             {
-                return OperationResult<IEnumerable<Permit>>.Fail("Ha ocurrido un error al cargar los permiso.");
+                return OperationResult<IEnumerable<PermitViewModel>>.Fail("Ha ocurrido un error al cargar los permiso.");
             }
+        }
+
+        private IEnumerable<PermitViewModel> BuildPermits(IEnumerable<Permit> permits)
+        {
+            return permits.Select(permit => new PermitViewModel
+            {
+                Id = permit.Id,
+                EmployeeName = permit.EmployeeName,
+                EmployeeLastName = permit.EmployeeLastName,
+                PermitType = _permitTypeRepositoy.Find(permitType => permitType.Id == 1).Description,
+                Date = permit.Date
+            });
         }
 
         public async Task<IOperationResult<bool>> Delete(int permitId)
