@@ -1,0 +1,15 @@
+D:\Repositorys\applicationTest\ApplicationTest\Database\bin\Debug\netcoreapp3.1\Database.deps.json
+D:\Repositorys\applicationTest\ApplicationTest\Database\bin\Debug\netcoreapp3.1\Database.dll
+D:\Repositorys\applicationTest\ApplicationTest\Database\bin\Debug\netcoreapp3.1\Database.pdb
+D:\Repositorys\applicationTest\ApplicationTest\Database\obj\Debug\netcoreapp3.1\Database.csprojAssemblyReference.cache
+D:\Repositorys\applicationTest\ApplicationTest\Database\obj\Debug\netcoreapp3.1\Database.AssemblyInfoInputs.cache
+D:\Repositorys\applicationTest\ApplicationTest\Database\obj\Debug\netcoreapp3.1\Database.AssemblyInfo.cs
+D:\Repositorys\applicationTest\ApplicationTest\Database\obj\Debug\netcoreapp3.1\Database.dll
+D:\Repositorys\applicationTest\ApplicationTest\Database\obj\Debug\netcoreapp3.1\Database.pdb
+D:\Repositorys\applicationTest\ApplicationTest\Database\bin\Debug\netcoreapp3.1\Core.dll
+D:\Repositorys\applicationTest\ApplicationTest\Database\bin\Debug\netcoreapp3.1\Core.pdb
+D:\Repositorys\applicationTest\ApplicationTest\Database\obj\Debug\netcoreapp3.1\Database.csproj.CopyComplete
+D:\Repositorys\applicationTest\ApplicationTest\Database\obj\Debug\netcoreapp3.1\Database.csproj.CoreCompileInputs.cache
+D:\Repositorys\applicationTest\ApplicationTest\Database\bin\Debug\netcoreapp3.1\Database.runtimeconfig.json
+D:\Repositorys\applicationTest\ApplicationTest\Database\bin\Debug\netcoreapp3.1\Database.runtimeconfig.dev.json
+D:\Repositorys\applicationTest\ApplicationTest\Database\obj\Debug\netcoreapp3.1\Database.genruntimeconfig.cache

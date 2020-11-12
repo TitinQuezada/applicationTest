@@ -1,0 +1,8 @@
+D:\Repositorys\applicationTest\ApplicationTest\Core\bin\Debug\netcoreapp3.1\Core.deps.json
+D:\Repositorys\applicationTest\ApplicationTest\Core\bin\Debug\netcoreapp3.1\Core.dll
+D:\Repositorys\applicationTest\ApplicationTest\Core\bin\Debug\netcoreapp3.1\Core.pdb
+D:\Repositorys\applicationTest\ApplicationTest\Core\obj\Debug\netcoreapp3.1\Core.AssemblyInfoInputs.cache
+D:\Repositorys\applicationTest\ApplicationTest\Core\obj\Debug\netcoreapp3.1\Core.AssemblyInfo.cs
+D:\Repositorys\applicationTest\ApplicationTest\Core\obj\Debug\netcoreapp3.1\Core.csproj.CoreCompileInputs.cache
+D:\Repositorys\applicationTest\ApplicationTest\Core\obj\Debug\netcoreapp3.1\Core.dll
+D:\Repositorys\applicationTest\ApplicationTest\Core\obj\Debug\netcoreapp3.1\Core.pdb

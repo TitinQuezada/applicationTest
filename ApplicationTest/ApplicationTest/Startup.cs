@@ -1,7 +1,10 @@
+using Core.Interfaces;
+using Core.Managers;
+using Database;
+using Database.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.SpaServices.AngularCli;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -26,6 +29,22 @@ namespace ApplicationTest
             {
                 configuration.RootPath = "ClientApp/dist";
             });
+
+            services.AddDbContext<ApplicationContext>((options) => options.UseSqlServer(Configuration.GetConnectionString("dbConnection")));
+
+            InitializeRepositories(services);
+            InitializeManagers(services);
+        }
+
+        private void InitializeRepositories(IServiceCollection services)
+        {
+            services.AddScoped<IPermitRepositoy, PermitRepositoy>();
+            services.AddScoped<IPermitTypeRepository, PermitTypeRepository>();
+        }
+
+        private void InitializeManagers(IServiceCollection services)
+        {
+            services.AddScoped<PermitManager, PermitManager>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -67,7 +86,7 @@ namespace ApplicationTest
 
                 if (env.IsDevelopment())
                 {
-                    spa.UseAngularCliServer(npmScript: "start");
+                    spa.UseProxyToSpaDevelopmentServer("http://localhost:8080");
                 }
             });
         }
