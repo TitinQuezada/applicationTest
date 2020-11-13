@@ -23,7 +23,6 @@
 </template>
 
 <script>
-// @ is an alias to /src
 import Permit from "@/components/Permits/Permit.vue";
 
 export default {

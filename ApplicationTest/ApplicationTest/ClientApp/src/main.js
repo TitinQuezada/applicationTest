@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import App from './App.vue';
-import router from './router';
+import router from './router/router';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import VueToastr2 from 'vue-toastr-2';
 import 'vue-toastr-2/dist/vue-toastr-2.min.css';
