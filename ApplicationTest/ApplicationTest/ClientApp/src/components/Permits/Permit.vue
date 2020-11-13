@@ -56,6 +56,10 @@
       </tbody>
     </table>
 
+    <div v-if="!permits.length" class="text center">
+      No hay licencias registradas
+    </div>
+
     <md-dialog-confirm
       :md-active.sync="isDeleteModalActive"
       md-title="Esta seguro que desea eliminar este permiso?"
