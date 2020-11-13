@@ -66,7 +66,6 @@
       md-content="Esta accion no se puede revertir"
       md-confirm-text="Eliminar"
       md-cancel-text="Cancelar"
-      @md-cancel="onCancel"
       @md-confirm="onConfirm"
     />
   </div>

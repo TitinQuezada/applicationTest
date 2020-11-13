@@ -38,10 +38,6 @@ export default {
       }
     },
 
-    onCancel() {
-      console.log('cancelado');
-    },
-
     openDeleteModal(permitId) {
       this.isDeleteModalActive = true;
       this.permitIdSelected = permitId;
