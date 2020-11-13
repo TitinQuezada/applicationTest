@@ -70,6 +70,8 @@ export default {
           await PermitService.create(permit);
           this.isLoading = false;
 
+          this.cleanForm();
+
           this.$toastr.success(
             'Se ha creado el permiso correctamente',
             'Exito!'
@@ -79,6 +81,13 @@ export default {
           this.$toastr.error(response.data, 'Ha ocurrido un error inesperado!');
         }
       }
+    },
+
+    cleanForm() {
+      this.employeeName = '';
+      this.employeeLastName = '';
+      this.permitType = {};
+      this.date = MomentHelper.getDate();
     },
   },
 };
