@@ -10,8 +10,8 @@ namespace Core.ViewModels
 
         public string EmployeeLastName { get; set; }
 
-        public string PermitType { get; set; }
+        public PermitTypeViewModel PermitType { get; set; }
 
-        public DateTime Date { get; set; }
+        public string Date { get; set; }
     }
 }

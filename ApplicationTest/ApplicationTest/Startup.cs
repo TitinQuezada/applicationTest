@@ -34,6 +34,8 @@ namespace ApplicationTest
 
             InitializeRepositories(services);
             InitializeManagers(services);
+
+            services.AddControllers().AddNewtonsoftJson();
         }
 
         private void InitializeRepositories(IServiceCollection services)
@@ -45,6 +47,8 @@ namespace ApplicationTest
         private void InitializeManagers(IServiceCollection services)
         {
             services.AddScoped<PermitManager, PermitManager>();
+            services.AddScoped<PermitTypeManager, PermitTypeManager>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

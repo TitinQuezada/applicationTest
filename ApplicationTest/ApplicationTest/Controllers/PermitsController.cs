@@ -69,5 +69,18 @@ namespace ApplicationTest.Controllers
 
             return Ok();
         }
+
+        [HttpGet("{permitId}")]
+        public async Task<IActionResult> GetById(int permitId)
+        {
+            IOperationResult<PermitViewModel> operationResult = await _permitManager.GetById(permitId);
+
+            if (!operationResult.Success)
+            {
+                return BadRequest(operationResult.Message);
+            }
+
+            return Ok(operationResult.Entity);
+        }
     }
 }

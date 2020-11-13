@@ -10,12 +10,12 @@ namespace Core.Managers
     public sealed class PermitManager
     {
         private readonly IPermitRepositoy _permitRepositoy;
-        private readonly IPermitTypeRepository _permitTypeRepositoy;
+        private readonly IPermitTypeRepository _permitTypeRepository;
 
         public PermitManager(IPermitRepositoy permitRepositoy, IPermitTypeRepository permitTypeRepository)
         {
             _permitRepositoy = permitRepositoy;
-            _permitTypeRepositoy = permitTypeRepository;
+            _permitTypeRepository = permitTypeRepository;
         }
 
         public async Task<IOperationResult<bool>> Create(PermitCreateOrEditViewModel permit)
@@ -70,7 +70,7 @@ namespace Core.Managers
 
         private async Task<IOperationResult<Permit>> BuildPermit(PermitCreateOrEditViewModel permitToCreate)
         {
-            PermitType permitType = await _permitTypeRepositoy.FindAsync(permitType => permitType.Id == permitToCreate.PermitType);
+            PermitType permitType = await _permitTypeRepository.FindAsync(permitType => permitType.Id == permitToCreate.PermitType);
 
             if (permitType == null)
             {
@@ -102,7 +102,7 @@ namespace Core.Managers
 
                 Permit permit = await _permitRepositoy.FindAsync(permit => permit.Id == permitToUpdate.Id);
 
-                PermitType permitType = await _permitTypeRepositoy.FindAsync(permitType => permitType.Id == permitToUpdate.PermitType);
+                PermitType permitType = await _permitTypeRepository.FindAsync(permitType => permitType.Id == permitToUpdate.PermitType);
 
                 if (permitType == null)
                 {
@@ -128,7 +128,7 @@ namespace Core.Managers
         {
             try
             {
-                IEnumerable<Permit> permits = _permitRepositoy.Get();
+                IEnumerable<Permit> permits = _permitRepositoy.Get(permit => permit.PermitType);
 
                 IEnumerable<PermitViewModel> permitsResult = BuildPermits(permits);
 
@@ -147,9 +147,20 @@ namespace Core.Managers
                 Id = permit.Id,
                 EmployeeName = permit.EmployeeName,
                 EmployeeLastName = permit.EmployeeLastName,
-                PermitType = _permitTypeRepositoy.Find(permitType => permitType.Id == 1).Description,
-                Date = permit.Date
+                PermitType = BuildPermitType(permit.PermitType.Id),
+                Date = permit.Date.ToString("yyyy-MM-dd")
             });
+        }
+
+        private PermitTypeViewModel BuildPermitType(int permitTypeId)
+        {
+            PermitType permitType = _permitTypeRepository.Find(permitType => permitType.Id == permitTypeId);
+
+            return new PermitTypeViewModel
+            {
+                Id = permitType.Id,
+                Description = permitType.Description
+            };
         }
 
         public async Task<IOperationResult<bool>> Delete(int permitId)
@@ -166,6 +177,36 @@ namespace Core.Managers
             {
                 return OperationResult<bool>.Fail("Ha ocurrido un error al eliminar el permiso.");
             }
+        }
+
+        public async Task<IOperationResult<PermitViewModel>> GetById(int permitId)
+        {
+            try
+            {
+                Permit permit = await _permitRepositoy.FindAsync(permit => permit.Id == permitId, permit => permit.PermitType);
+
+                PermitViewModel permitsResult = await BuildPermit(permit);
+
+                return OperationResult<PermitViewModel>.Ok(permitsResult);
+            }
+            catch
+            {
+                return OperationResult<PermitViewModel>.Fail("Ha ocurrido un error al cargar los permiso.");
+            }
+        }
+
+        private async Task<PermitViewModel> BuildPermit(Permit permit)
+        {
+            PermitType permitType = await _permitTypeRepository.FindAsync(permitType => permitType.Id == permit.PermitType.Id);
+
+            return new PermitViewModel
+            {
+                Id = permit.Id,
+                EmployeeName = permit.EmployeeName,
+                EmployeeLastName = permit.EmployeeLastName,
+                PermitType = BuildPermitType(permit.PermitType.Id),
+                Date = permit.Date.ToString("yyyy-MM-dd")
+            };
         }
     }
 }
