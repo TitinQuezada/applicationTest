@@ -76,8 +76,8 @@ export default {
           this.isLoading = false;
 
           this.$toastr.success(
-            'Exito!',
-            'Se ha actualizado el permiso correctamente'
+            'Se ha actualizado el permiso correctamente',
+            'Exito!'
           );
         } catch ({ response }) {
           this.isLoading = false;

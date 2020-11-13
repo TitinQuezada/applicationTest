@@ -30,8 +30,8 @@ export default {
         await PermitService.delete(this.permitIdSelected);
         this.getPermits();
         this.$toastr.success(
-          'Exito!',
-          'Se ha eliminado el permiso correctamente'
+          'Se ha eliminado el permiso correctamente',
+          'Exito!'
         );
       } catch ({ response }) {
         this.$toastr.error(response.data, 'Ha ocurrido un error inesperado!');
