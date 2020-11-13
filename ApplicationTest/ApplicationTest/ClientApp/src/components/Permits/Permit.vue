@@ -57,7 +57,7 @@
     </table>
 
     <div v-if="!permits.length" class="text center">
-      No hay licencias registradas
+      No hay permisos registradas
     </div>
 
     <md-dialog-confirm
